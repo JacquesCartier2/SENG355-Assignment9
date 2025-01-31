@@ -5,7 +5,7 @@ public class Stock implements KnapsackObject{
 	double possiblePrice;
 	
 	public double GetValue() {
-		return 0;
+		return (possiblePrice - price) * probability;
 	}
 	
 	public double GetCost() {
