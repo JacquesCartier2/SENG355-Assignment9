@@ -2,7 +2,7 @@ import java.util.List;
 
 public class OptimalKnapsackSolver {
 
-    public static double maximizeInvestmentValue(List<KnapsackObject> items, double budget) {
+    public static double maximizeValue(List<KnapsackObject> items, double budget) {
         int itemCount = items.size();
         double maxValue = 0;
 
