@@ -11,24 +11,24 @@ public class OptimalKnapsackSolver {
 	        itemCosts[i] = item.GetCost();
 	        itemValues[i] = item.GetValue();
 	    }
-	    double[][] dp = new double[itemCount + 1][(int) (budget + 1)];
+	    double[][] matrix = new double[itemCount + 1][(int) (budget + 1)];
 	    for (int item = 1; item <= itemCount; item++) {
 	        for (int capacity = 1; capacity <= budget; capacity++) {
-	            double maxValWithoutCurr = dp[item - 1][capacity];
+	            double maxValWithoutCurr = matrix[item - 1][capacity];
 	            double maxValWithCurr = 0;
 	            double weightOfCurr = itemCosts[item - 1];
 	            if (capacity >= weightOfCurr) {
 	                maxValWithCurr = itemValues[item - 1];
 	                double remainingCapacity = capacity - weightOfCurr;
-	                maxValWithCurr += dp[item - 1][(int) remainingCapacity];
+	                maxValWithCurr += matrix[item - 1][(int) remainingCapacity];
 	            }
-	            dp[item][capacity] = Math.max(maxValWithoutCurr, maxValWithCurr);
+	            matrix[item][capacity] = Math.max(maxValWithoutCurr, maxValWithCurr);
 	        }
 	    }
 	    List<KnapsackObject> selectedItems = new ArrayList<>();
 	    double remainingBudget = budget;
 	    for (int item = itemCount; item > 0; item--) {
-	        if (dp[item][(int) remainingBudget] != dp[item - 1][(int) remainingBudget]) {
+	        if (matrix[item][(int) remainingBudget] != matrix[item - 1][(int) remainingBudget]) {
 	            KnapsackObject itemObj = items.get(item - 1);
 	            if (remainingBudget - itemCosts[item - 1] >= 0) {
 	                selectedItems.add(itemObj);
