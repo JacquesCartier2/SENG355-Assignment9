@@ -1,6 +1,9 @@
 import java.util.ArrayList;
 import java.util.List;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Program {
     static String filePath = "data.csv";
 
@@ -26,13 +29,14 @@ public class Program {
     }
     
     private static void RunTestCase(ArrayList<KnapsackObject> _data, double _budget) {
-    	long startTimeGreedy = System.nanoTime();
+        long startTimeGreedy = System.nanoTime();
         List<KnapsackObject> greedySelectedItems = GreedyKnapsackSolver.solve(_data, _budget);
         long endTimeGreedy = System.nanoTime();
         long greedyDuration = endTimeGreedy - startTimeGreedy;
+        long greedyDurationMillis = greedyDuration / 1000000; 
 
         System.out.println("Greedy Algorithm - Selected Items: " + greedySelectedItems.size());
-        System.out.println("Greedy Algorithm Time: " + greedyDuration + " nanoseconds");
+        System.out.println("Greedy Algorithm Time: " + greedyDurationMillis + " milliseconds");
         
         System.out.println("");
 
@@ -44,11 +48,12 @@ public class Program {
         List<KnapsackObject> optimalSelectedItems = OptimalKnapsackSolver.maximizeValue(_data, _budget); 
         long endTimeOptimal = System.nanoTime();
         long optimalDuration = endTimeOptimal - startTimeOptimal;
+        long optimalDurationMillis = optimalDuration / 1000000; 
         
         System.out.println(""); 
 
         System.out.println("Optimal Algorithm - Selected Items: " + optimalSelectedItems.size());
-        System.out.println("Optimal Algorithm Time: " + optimalDuration + " nanoseconds");
+        System.out.println("Optimal Algorithm Time: " + optimalDurationMillis + " milliseconds");
         
         System.out.println("");
 
@@ -68,8 +73,6 @@ public class Program {
         double budget = 500;
         
         RunTestCase(stockData, budget);
-
-          
     }
 }
 
