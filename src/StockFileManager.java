@@ -62,7 +62,7 @@ public class StockFileManager implements FileManager{
 		}
 	}
 	
-	public ArrayList<KnapsackObject> ReadDataFromFile(String _filePath){
+	public ArrayList<KnapsackObject> ReadDataFromFile(String _filePath, int _linesToRead){
 		File loadedFile = null;
 		
 		
@@ -78,6 +78,7 @@ public class StockFileManager implements FileManager{
 			
 			BufferedReader br = new BufferedReader(new FileReader(loadedFile));
 			String line = "";
+			int linesToRead = _linesToRead;
 			double price;
 			double probability;
 			double possiblePrice;
@@ -85,7 +86,7 @@ public class StockFileManager implements FileManager{
 			
 			br.readLine(); //first line contains data field names and should be skipped. 
 			
-			while ((line = br.readLine()) != null) {   //go through each line in the file
+			while ((line = br.readLine()) != null && linesToRead > 0) {   //go through each line in the file
 				lineNumber++;
 				
 				//if a line is completely empty, ignore it.
@@ -133,6 +134,8 @@ public class StockFileManager implements FileManager{
 				
 				//if all three data points work, add a new expense.
 				data.add(new Stock(price, probability, possiblePrice));
+				
+				linesToRead--;
 			}
 			
 			br.close();
