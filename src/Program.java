@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Program {
-    static String filePath = "C:\\School\\Assignments\\SENG355-Ass9\\data.csv";
+    static String filePath = "data.csv";
 
     private static void PrintResults(List<KnapsackObject> _list) {
         double totalValue = 0;
