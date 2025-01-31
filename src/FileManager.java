@@ -2,7 +2,7 @@ import java.io.File;
 import java.util.ArrayList;
 
 public interface FileManager {
-	public ArrayList<KnapsackObject> ReadDataFromFile(File _file);
+	public ArrayList<KnapsackObject> ReadDataFromFile(String _filePath);
 	public void WriteDataToFile(ArrayList<KnapsackObject> _data, String _filePath);
 	public ArrayList<KnapsackObject> GenerateData(int _dataPoints);
 }

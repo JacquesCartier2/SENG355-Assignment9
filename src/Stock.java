@@ -29,6 +29,14 @@ public class Stock implements KnapsackObject{
 		return "price: " + price + ", prob: " + probability + ", possible: " + possiblePrice + ". ";
 	}
 	
+	public String ToCSVEntry(){
+		return price + "," + probability + "," + possiblePrice;
+	}
+	
+	public String GetCSVTitle() {
+		return "price,probability,possiblePrice";
+	}
+	
 	public Stock(double _price, double _probability, double _possiblePrice) {
 		this.price = _price;
 		this.probability = _probability;
