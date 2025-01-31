@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Program {
-    static String filePath = "data.csv";
+    static String filePath = "C:\\School\\Assignments\\SENG355-Ass9\\data.csv";
 
     private static void PrintResults(List<KnapsackObject> _list) {
         double totalValue = 0;
@@ -24,21 +24,10 @@ public class Program {
             System.out.println(obj);
         }
     }
-
-    public static void main(String[] args) {
-        StockFileManager fileManager = new StockFileManager(1, 100, 1, 200);
-
-        ArrayList<KnapsackObject> stockData = fileManager.ReadDataFromFile(filePath, 100);
-
-        if (stockData == null || stockData.isEmpty()) {
-            System.out.println("No data available to process.");
-            return;
-        }
-
-        double budget = 500;
-
-        long startTimeGreedy = System.nanoTime();
-        List<KnapsackObject> greedySelectedItems = GreedyKnapsackSolver.solve(stockData, budget);
+    
+    private static void RunTestCase(ArrayList<KnapsackObject> _data, double _budget) {
+    	long startTimeGreedy = System.nanoTime();
+        List<KnapsackObject> greedySelectedItems = GreedyKnapsackSolver.solve(_data, _budget);
         long endTimeGreedy = System.nanoTime();
         long greedyDuration = endTimeGreedy - startTimeGreedy;
 
@@ -52,7 +41,7 @@ public class Program {
         System.out.println("");
 
         long startTimeOptimal = System.nanoTime();
-        List<KnapsackObject> optimalSelectedItems = OptimalKnapsackSolver.maximizeValue(stockData, budget); 
+        List<KnapsackObject> optimalSelectedItems = OptimalKnapsackSolver.maximizeValue(_data, _budget); 
         long endTimeOptimal = System.nanoTime();
         long optimalDuration = endTimeOptimal - startTimeOptimal;
         
@@ -63,7 +52,24 @@ public class Program {
         
         System.out.println("");
 
-        PrintResults(optimalSelectedItems);  
+        PrintResults(optimalSelectedItems);
+    }
+
+    public static void main(String[] args) {
+        StockFileManager fileManager = new StockFileManager(1, 100, 1, 200);
+
+        ArrayList<KnapsackObject> stockData = fileManager.ReadDataFromFile(filePath, 100);
+
+        if (stockData == null || stockData.isEmpty()) {
+            System.out.println("No data available to process.");
+            return;
+        }
+
+        double budget = 500;
+        
+        RunTestCase(stockData, budget);
+
+          
     }
 }
 
