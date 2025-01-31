@@ -1,31 +1,71 @@
 import java.util.ArrayList;
+import java.util.List;
 
 public class Program {
-	String filePath = "C:\\School\\Assignments\\SENG355-Ass9\\data.csv";
-	
-	private void PrintResults(ArrayList<KnapsackObject> _list) {
-		double totalValue = 0;
-		double totalCost = 0;
-		
-		for(KnapsackObject obj : _list) {
-			totalValue += obj.GetValue();
-			totalCost += obj.GetCost();
-		}
-		
-		System.out.println("Total value: " + totalValue);
-		System.out.println("Total cost: " + totalCost);
-		System.out.println("Number of objects: " + _list.size());
-		PrintList(_list);
-	}
-	
-	private void PrintList(ArrayList<KnapsackObject> _list) {
-		for(KnapsackObject obj : _list) {
-			System.out.println(obj);
-		}
-	}
+    static String filePath = "data.csv";
 
-	public static void main(String[] args) {
-		
-	}
+    private static void PrintResults(List<KnapsackObject> _list) {
+        double totalValue = 0;
+        double totalCost = 0;
 
+        for (KnapsackObject obj : _list) {
+            totalValue += obj.GetValue();
+            totalCost += obj.GetCost();
+        }
+
+        System.out.println("Total value: " + totalValue);
+        System.out.println("Total cost: " + totalCost);
+        System.out.println("Number of objects: " + _list.size());
+        PrintList(_list);
+    }
+
+    private static void PrintList(List<KnapsackObject> _list) {
+        for (KnapsackObject obj : _list) {
+            System.out.println(obj);
+        }
+    }
+
+    public static void main(String[] args) {
+        StockFileManager fileManager = new StockFileManager(1, 100, 1, 200);
+
+        ArrayList<KnapsackObject> stockData = fileManager.ReadDataFromFile(filePath, 100);
+
+        if (stockData == null || stockData.isEmpty()) {
+            System.out.println("No data available to process.");
+            return;
+        }
+
+        double budget = 500;
+
+        long startTimeGreedy = System.nanoTime();
+        List<KnapsackObject> greedySelectedItems = GreedyKnapsackSolver.solve(stockData, budget);
+        long endTimeGreedy = System.nanoTime();
+        long greedyDuration = endTimeGreedy - startTimeGreedy;
+
+        System.out.println("Greedy Algorithm - Selected Items: " + greedySelectedItems.size());
+        System.out.println("Greedy Algorithm Time: " + greedyDuration + " nanoseconds");
+        
+        System.out.println("");
+
+        PrintResults(greedySelectedItems);
+        
+        System.out.println("");
+
+        long startTimeOptimal = System.nanoTime();
+        List<KnapsackObject> optimalSelectedItems = OptimalKnapsackSolver.maximizeValue(stockData, budget); 
+        long endTimeOptimal = System.nanoTime();
+        long optimalDuration = endTimeOptimal - startTimeOptimal;
+        
+        System.out.println(""); 
+
+        System.out.println("Optimal Algorithm - Selected Items: " + optimalSelectedItems.size());
+        System.out.println("Optimal Algorithm Time: " + optimalDuration + " nanoseconds");
+        
+        System.out.println("");
+
+        PrintResults(optimalSelectedItems);  
+    }
 }
+
+
+
